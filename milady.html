@@ -12,8 +12,19 @@
         body {
             overflow-x: hidden;
             font-family: 'Roboto Mono', monospace;
-            background-image: url("https://i.giphy.com/vHu2pghQdCuBO.webp");
-            background-size: tile;
+        }
+
+        .background-gif {
+            position: absolute;
+            background-size: 120%;
+            margin: 0;
+            padding: 0;
+            width: 120vw;
+            height: 105vh;
+            left: -1.3%;
+            background-repeat: no-repeat;
+            z-index: -3;
+            background-size: 200%;
         }
 
         .full-screen-container {
@@ -96,6 +107,7 @@
 
         .sliding-ticker {
             white-space: nowrap;
+            z-index: 3 !important;
             animation: slide-ticker 20s linear infinite;
         }
 
@@ -104,11 +116,15 @@
             padding-right: 100%;
             font-weight: bold;
             font-size: 30px;
+            z-index: 3 !important;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
         .top-container {
             width: 100%;
+            z-index: 10000000000;
+            top: 0;
+            position: absolute;
         }
 
         .bg-milady {
@@ -225,7 +241,7 @@
             }
 
             .bg-milady {
-                width: 90%;
+                width: 80%;
             }
         }
 
@@ -239,7 +255,7 @@
             }
 
             .bg-milady {
-                width: 750px;
+                width: 650px;
             }
         }
 
@@ -269,7 +285,7 @@
             }
 
             .bg-milady {
-                width: 950px;
+                width: 700px;
             }
         }
 
@@ -283,7 +299,7 @@
             }
 
             .bg-milady {
-                width: 900px;
+                width: 620px;
             }
         }
 
@@ -301,8 +317,10 @@
 
 <body>
     <div class="full-screen-container">
+        <img class="background-gif" src="https://i.giphy.com/vHu2pghQdCuBO.webp" />
         <div class="top-container text-large text-center">
-            <p class="no-select font-weight-bold responsive-text title-bar w-100 bg-dark text-lime p-1 text-large p-1">MILADY ON
+            <p class="no-select font-weight-bold responsive-text title-bar w-100 bg-dark text-lime p-1 text-large p-1">
+                MILADY ON
                 SOLANA</p>
             <div id="tickerContainer" class="ticker bg-black">
                 <p id="tickerContent" class="no-wrap responsive-text font-weight-bold text-lime p-1 text-large no-wrap">
