@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milady on SOL</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            overflow-x: hidden;
+            font-family: 'Roboto Mono', monospace;
+            background-image: url("https://i.giphy.com/vHu2pghQdCuBO.webp");
+            background-size: tile;
+        }
+
+        .full-screen-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg-lime {
+            background-color: lime;
+        }
+
+        .text-lime {
+            color: lime;
+        }
+
+        .title-bar {
+            margin-bottom: 0px;
+        }
+
+        .no-wrap {
+            white-space: nowrap;
+        }
+
+        .ticker {
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            line-height: 24px;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            width: 100%;
+        }
+
+        .ticker p {
+            display: inline-block;
+            margin-right: 100%;
+            animation: ticker-fade 10s linear infinite;
+        }
+
+        .ticker-item {
+            margin-top: 5px;
+            display: inline-block;
+            margin-right: 30px;
+            margin-bottom: 5px;
+        }
+
+        .up {
+            color: lime;
+        }
+
+        .down {
+            color: red;
+        }
+
+        .bg-black {
+            background-color: black;
+        }
+
+        .fade-in {
+            animation: fadeIn 1.2s ease-in-out forwards;
+        }
+
+        .info-container {
+            background-color: rgba(0, 0, 0);
+            z-index: 999;
+            margin-top: 490px;
+            height: 300px;
+        }
+
+        .sliding-ticker-container {
+            width: 100%;
+            overflow: hidden;
+            background-color: #777777;
+            border-bottom: 5px solid black;
+            z-index: 200000;
+        }
+
+        .sliding-ticker {
+            white-space: nowrap;
+            animation: slide-ticker 20s linear infinite;
+        }
+
+        .ticker-text {
+            display: inline-block;
+            padding-right: 100%;
+            font-weight: bold;
+            font-size: 30px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .top-container {
+            width: 100%;
+        }
+
+        .bg-milady {
+            height: 500px;
+            position: absolute;
+            top: 100px;
+            z-index: -1;
+            opacity: 1;
+            border: 5px solid black;
+        }
+
+        .milady-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .copy-div {
+            position: absolute;
+            top: 170px;
+            cursor: pointer;
+            z-index: 100000;
+            border-radius: 10px;
+            background-color: black;
+            padding: 10px;
+            font-size: 20px;
+            color: white;
+            width: 600px;
+            border: 3px solid limegreen;
+        }
+
+        .copy-div:hover {
+            background-color: rgb(80, 80, 80);
+        }
+
+        .item-container {
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000000000000000;
+            width: 600px;
+            position: absolute;
+            top: 234px;
+        }
+
+        .item {
+            width: 32%;
+            height: 50px;
+            border-radius: 10px;
+            background-color: black;
+            cursor: pointer;
+            color: white;
+            border: 3px solid limegreen;
+            font-size: 15px;
+        }
+
+        .item:hover {
+            background-color: rgb(80, 80, 80);
+        }
+
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+
+
+
+        @keyframes slide-ticker {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-350%);
+            }
+        }
+
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (min-width: 500px) {
+            .responsive-text {
+                font-size: 17px;
+            }
+
+            .info-container {
+                width: 90%;
+            }
+
+            .bg-milady {
+                width: 90%;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .responsive-text {
+                font-size: 22px;
+            }
+
+            .info-container {
+                width: 750px;
+            }
+
+            .bg-milady {
+                width: 750px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .copy-div {
+                font-size: 11.5px;
+                width: 93%;
+            }
+
+            .item-container {
+                width: 93%;
+                top: 234px;
+            }
+
+            .item {
+                font-size: 11.5px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .responsive-text {
+                font-size: 30px;
+            }
+
+            .info-container {
+                width: 950px;
+            }
+
+            .bg-milady {
+                width: 950px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .responsive-text {
+                font-size: 30px;
+            }
+
+            .info-container {
+                width: 900px;
+            }
+
+            .bg-milady {
+                width: 900px;
+            }
+        }
+
+        @keyframes ticker-fade {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="full-screen-container">
+        <div class="top-container text-large text-center">
+            <p class="no-select font-weight-bold responsive-text title-bar w-100 bg-dark text-lime p-1 text-large p-1">MILADY ON
+                SOLANA</p>
+            <div id="tickerContainer" class="ticker bg-black">
+                <p id="tickerContent" class="no-wrap responsive-text font-weight-bold text-lime p-1 text-large no-wrap">
+                </p>
+            </div>
+            <div class="sliding-ticker-container">
+                <div class="sliding-ticker">
+                    <div class="ticker-text no-select">
+                        COMMUNITY TAKEOVER COIN MADE WITH BITS OF REAL MILADYS. LETS MAKE MILADY FUN AGAIN!
+                    </div>
+                </div>
+            </div>
+
+            <div class="milady-container">
+                <div id="copyDiv" class="copy-div">HB2pjBPuquh1XGEVC1GCKepdh4daoJnkJiHFmaorfBWu</div>
+                <div class="item-container">
+                    <div onclick="window.location.href = 'https\://t.me/milady_entry'"
+                        class="item no-select d-flex justify-content-center align-items-center">Telegram</div>
+                    <div onclick="window.location.href = 'https\://twitter.com/miladysoltoken'"
+                        class="item no-select d-flex justify-content-center align-items-center">Twitter</div>
+                    <div onclick="window.location.href = 'https\://dexscreener.com/solana/4kpfxt6teni3ogezwyubcvp49svtxc4feztm1w7dnatb'"
+                        class="item no-select d-flex justify-content-center align-items-center">Dexscreener</div>
+                </div>
+                <img class="bg-milady"
+                    src="https://lh3.googleusercontent.com/pw/AP1GczNcAZY50ZBvnd1QB6ojqO_GcqXovOsV-FBwdtzo7-5-g7yg6iJ_tG2h7H2jfo4jqu_pOrnNNfaUmibSv4vjfwMj2p-1ZxBzAeYGWqmFhhs0OH6O1FnPBA_p6NJz2lOs4eYoVVXnjjlyoLUF5xBnQXU=w1056-h980-s-no?authuser=0"
+                    class="img-fluid" />
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap">
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            var copyDiv = document.getElementById('copyDiv');
+
+            copyDiv.addEventListener('click', function () {
+                var textarea = document.createElement('textarea');
+                textarea.value = copyDiv.innerText;
+                document.body.appendChild(textarea);
+
+                textarea.select();
+                textarea.setSelectionRange(0, 99999);
+
+                document.execCommand('copy');
+
+                document.body.removeChild(textarea);
+
+                copyDiv.innerText = 'Copied!';
+            });
+
+            copyDiv.style.cursor = 'pointer';
+
+            var increment = 0;
+
+            function generateStockTicker() {
+                var tickers = ['REMILIO', 'SAPPY SEALS', 'MILADY', 'CLONE X', 'BONKLER', 'YAYO', 'BAYC', 'PUDGY PENGUINS', 'CRYPTO PUNK', 'SCHIZOPOSTERS', 'BORED MILADY', 'PIXELADY', 'NAKAMIGOS', 'RADBRO', 'WOW', 'MUTANT APES'];
+                var nextTicker = tickers[increment];
+                var randomMovement = '';
+                if (nextTicker.match(/SAPPY SEALS|CLONE X|BAYC|CRYPTO PUNK|NAKAMIGOS|PUDGY PENGUINS|WOW|MUTANT APES/)) {
+                    randomMovement = 'down';
+                } else {
+                    randomMovement = 'up';
+                }
+                var percentageChange = Math.random() * 10;
+
+                return nextTicker + ' ' + (randomMovement === 'up' ? '▲' : '▼') + ' ' + percentageChange.toFixed(2) + '%';
+            }
+
+            function createTickerItem() {
+                increment++;
+                var tickerContainer = document.getElementById('tickerContainer');
+                var tickerItem = document.createElement('div');
+                tickerItem.className = 'ticker-item';
+                tickerItem.innerText = generateStockTicker();
+                tickerItem.classList.add(tickerItem.innerText.includes('▲') ? 'up' : 'down');
+                tickerContainer.appendChild(tickerItem);
+            }
+
+            function removeOldestTickerItem() {
+                var tickerContainer = document.getElementById('tickerContainer');
+                if (tickerContainer.children.length > 0) {
+                    tickerContainer.removeChild(tickerContainer.children[0]);
+                }
+            }
+
+            for (var i = 0; i < 5; i++) {
+                createTickerItem();
+            }
+
+            setInterval(function () {
+                createTickerItem();
+                removeOldestTickerItem();
+                if (increment === 13) {
+                    increment = 0;
+                }
+            }, 3000);
+        });
+
+    </script>
+</body>
+
+</html>
